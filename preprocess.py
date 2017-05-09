@@ -106,5 +106,5 @@ def get_target(data):
     a = data.iloc[:, 0]
     target = []
     for i in xrange(0, len(data)):
-        target.append(int(a[i][0]))
+        target.append((a[i][0]))
     return target
