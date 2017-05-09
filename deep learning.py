@@ -137,7 +137,7 @@ def basicnn3():
     l3 = add_layer(l2, 512, 256, activation_function=tf.nn.sigmoid)
     # l4 = add_layer(l3, 256, 128, activation_function=tf.nn.sigmoid)
     # l5 = add_layer(l4, 128, 64, activation_function=tf.nn.sigmoid)
-    prediction = add_layer(l3, 1024, 7, activation_function=tf.nn.sigmoid)
+    prediction = add_layer(l3, 256, 7, activation_function=tf.nn.sigmoid)
 
     # loss function
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
@@ -208,8 +208,8 @@ def basicnn4():
 
 if __name__ == "__main__":
     # basicnn()
-    basicnn2()
-    # basicnn3()
+    # basicnn2()
+    basicnn3()
     # basicnn4()
 
 
