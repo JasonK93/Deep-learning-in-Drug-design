@@ -157,7 +157,7 @@ def basicnn3():
             print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
             print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic2')
+            saver.save(sess, 'basic3')
 
 def basicnn4():
 
@@ -209,7 +209,7 @@ def basicnn4():
             print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
             print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic2')
+            saver.save(sess, 'basic4')
 
 if __name__ == "__main__":
     # basicnn()
