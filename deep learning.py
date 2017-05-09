@@ -179,12 +179,17 @@ def basicnn4():
     ys = tf.placeholder(tf.float32, [None, 7], name="targets")
 
     # set up structure
-    l1 = add_layer(xs, 2048, 1024, activation_function=tf.nn.sigmoid)  # relu --> cross
-    l2 = add_layer(l1, 1024, 512, activation_function=tf.nn.sigmoid)
-    l3 = add_layer(l2, 512, 256, activation_function=tf.nn.sigmoid)
-    l4 = add_layer(l3, 256, 128, activation_function=tf.nn.sigmoid)
-    # l5 = add_layer(l4, 128, 64, activation_function=tf.nn.sigmoid)
-    prediction = add_layer(l1, 128, 7, activation_function=tf.nn.sigmoid)
+    l1 = add_layer(xs, 2048, 2048, activation_function=tf.nn.sigmoid)  # relu --> cross
+    l2 = add_layer(l1, 2048, 1024, activation_function=tf.nn.sigmoid)
+    l3 = add_layer(l2, 1024, 1024, activation_function=tf.nn.sigmoid)
+    l4 = add_layer(l3, 1024, 512, activation_function=tf.nn.sigmoid)
+    l5 = add_layer(l4, 512, 512, activation_function=tf.nn.sigmoid)
+    l6 = add_layer(l5, 512, 256, activation_function=tf.nn.sigmoid)
+    l7 = add_layer(l6, 256, 256, activation_function=tf.nn.sigmoid)
+    l8 = add_layer(l7, 256, 128, activation_function=tf.nn.sigmoid)
+    l9 = add_layer(l8, 128, 64, activation_function=tf.nn.sigmoid)
+    l10 = add_layer(l9, 64, 64, activation_function=tf.nn.sigmoid)
+    prediction = add_layer(l10, 64, 7, activation_function=tf.nn.sigmoid)
 
     # loss function
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
