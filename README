@@ -1,2 +1,21 @@
-This is a git repo
-For the ML2 Final project about medical analysis.
+This is a git report for the ML2 Final project about medical analysis.
+
+
+################# report ##################
+ML2_pro
+
+
+################# data preprocessing package ##########################
+preprocess.py
+
+
+################## model we used ######################
+traditional method.py
+deep learning.py
+deep cnn.py
+deep rnn.py
+deep comb.py
+
+################## reference doc #############
+Drug to target prediction cxessay.docx
+
