@@ -30,9 +30,27 @@ def rnn1():
     x = tf.placeholder(tf.float32, [None, 2048], name="features")
     y = tf.placeholder(tf.float32, [None, 7], name="targets")
 
+    def weight_variable(shape):
+        initial = tf.truncated_normal(shape, stddev=0.1)
+        return tf.Variable(initial)
+
+    def bias_variable(shape):
+        initial = tf.constant(0.1, shape=shape)
+        return tf.Variable(initial)
+
+    def conv1d(x, W):
+        return tf.nn.conv1d(x, W, stride=2, padding='SAME')
+
+
+    x_image = tf.reshape(x, [-1, 2048, 1])
+
+    W_conv1 = weight_variable([2, 1, 1])
+    b_conv1 = bias_variable([1])
+    h_conv1 = tf.nn.tanh(conv1d(x_image, W_conv1) + b_conv1)  # 1024x1
+    X_flat = tf.reshape(h_conv1, [-1, 1024])
 
     def neural_network_model(data):
-        hidden_1_layer = {'weights': tf.Variable(tf.random_normal([2048, n_nodes_hl1])),
+        hidden_1_layer = {'weights': tf.Variable(tf.random_normal([1024, n_nodes_hl1])),
                           'biases': tf.Variable(tf.random_normal([n_nodes_hl1]))}
 
         hidden_2_layer = {'weights': tf.Variable(tf.random_normal([n_nodes_hl1, n_nodes_hl2])),
@@ -44,7 +62,7 @@ def rnn1():
         output_layer = {'weights': tf.Variable(tf.random_normal([n_nodes_hl3, n_classes])),
                         'biases': tf.Variable(tf.random_normal([n_classes])), }
 
-        l1 = tf.add(tf.matmul(data, hidden_1_layer['weights']), hidden_1_layer['biases'])
+        l1 = tf.add(tf.matmul(X_flat, hidden_1_layer['weights']), hidden_1_layer['biases'])
         l1 = tf.nn.tanh(l1)
 
         l2 = tf.add(tf.matmul(l1, hidden_2_layer['weights']), hidden_2_layer['biases'])
@@ -86,54 +104,6 @@ def rnn1():
     train_neural_network(x)
 
 
-def basicnn3():
-
-    #  def nn layer
-    def add_layer(inputs, in_size, out_size, activation_function=None):
-        Weights = tf.Variable(tf.random_normal([in_size, out_size]))
-        biases = tf.Variable(tf.zeros([1, out_size])) + 0.1
-        Wx_plus_b = tf.matmul(inputs, Weights) + biases
-        if activation_function == None:
-            output = Wx_plus_b
-        else:
-            output = activation_function(Wx_plus_b)
-        return output
-
-
-
-    # set up placeholder
-    xs = tf.placeholder(tf.float32, [None, 2048], name="features")
-    ys = tf.placeholder(tf.float32, [None, 7], name="targets")
-
-    # set up structure
-    l1 = add_layer(xs, 2048, 1024, activation_function=tf.nn.sigmoid)  # relu --> cross
-    l2 = add_layer(l1, 1024, 512, activation_function=tf.nn.sigmoid)
-    l3 = add_layer(l2, 512, 256, activation_function=tf.nn.sigmoid)
-    # l4 = add_layer(l3, 256, 128, activation_function=tf.nn.sigmoid)
-    # l5 = add_layer(l4, 128, 64, activation_function=tf.nn.sigmoid)
-    prediction = add_layer(l3, 256, 7, activation_function=tf.nn.sigmoid)
-
-    # loss function
-    correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
-
-    init = tf.global_variables_initializer()
-    sess = tf.Session()
-    saver = tf.train.Saver()
-    sess.run(init)
-
-    for i in xrange(0, 10000):
-        sess.run(train_step, feed_dict={xs: X_train, ys: y_train})
-        if i % 100 == 0:
-            print 'process {0}'.format(i)
-            print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
-            print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
-            print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic3')
-
-
 def cnn2():
     def weight_variable(shape):
         initial = tf.truncated_normal(shape, stddev=0.1)
@@ -153,7 +123,7 @@ def cnn2():
     x_image = tf.reshape(xs, [-1, 2048, 1])
     ## conv1 layer ##
     # [filter_width, in_channels, out_channels]
-    W_conv1 = weight_variable([16, 1, 2])
+    W_conv1 = weight_variable([2, 1, 1])
     b_conv1 = bias_variable([2])
     h_conv1 = tf.nn.tanh(conv1d(x_image, W_conv1) + b_conv1)  # 1024x2
 
@@ -199,5 +169,4 @@ def cnn2():
 
 if __name__ == "__main__":
     # rnn1()
-    # cnn2()
-    basicnn3()
+    cnn2()
