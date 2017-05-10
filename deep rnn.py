@@ -78,7 +78,8 @@ def rnn1():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
-
+                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
+                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
 
     train_neural_network(x)
 
@@ -142,6 +143,8 @@ def rnn2():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
+                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
+                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
 
     train_neural_network(x)
 
@@ -205,6 +208,10 @@ def rnn3():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
+                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
+                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
+
+
 
     train_neural_network(x)
 
@@ -268,12 +275,14 @@ def rnn4():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
+                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
+                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
 
     train_neural_network(x)
 
 
 if __name__ == "__main__":
-    rnn1()
+    # rnn1()
     rnn2()
-    rnn3()
-    rnn4()
+    # rnn3()
+    # rnn4()
