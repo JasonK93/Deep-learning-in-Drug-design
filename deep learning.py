@@ -2,7 +2,8 @@ import pandas as pd
 import preprocess
 import tensorflow as tf
 from sklearn.preprocessing import MultiLabelBinarizer
-
+from sklearn.utils import shuffle
+import matplotlib.pyplot as plt
 
 data = pd.read_csv("myFP_217_D2.csv", header=None)
 
@@ -14,8 +15,12 @@ value = preprocess.get_target(D2)
 value = MultiLabelBinarizer().fit_transform(value)
 y = pd.DataFrame(value)
 
-X_train, X_test = X[:int((0.8*len(X)))], X[int((0.8*len(X))):]
-y_train, y_test = y[:int((0.8*len(X)))], y[int((0.8*len(X))):]
+X, y = shuffle(X, y, random_state=0)
+
+X_train, X_valid, X_test = X[:int((0.6*len(X)))], X[int((0.6*len(X))):int((0.8*len(X)))],  X[int((0.8*len(X))):]
+y_train, y_valid, y_test = y[:int((0.6*len(X)))], y[int((0.6*len(X))):int((0.8*len(X)))],  y[int((0.8*len(X))):]
+
+
 
 
 def basicnn():
@@ -49,7 +54,7 @@ def basicnn():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.01).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -60,10 +65,11 @@ def basicnn():
         sess.run(train_step, feed_dict={xs: X_train, ys: y_train})
         if i % 100 == 0:
             print 'process {0}'.format(i)
-            print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
-            print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
+            print 'Train Accuracy:', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
+            print 'Valid Accuracy:', sess.run(accuracy, feed_dict={xs: X_valid, ys: y_valid})
+            print 'Test Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic2')
+            # saver.save(sess, 'basic2')
 
 def basicnn2():
 
@@ -96,7 +102,7 @@ def basicnn2():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.01).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
 
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
@@ -107,10 +113,10 @@ def basicnn2():
         sess.run(train_step, feed_dict={xs: X_train, ys: y_train})
         if i % 100 == 0:
             print 'process {0}'.format(i)
-            print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
-            print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
+            print 'Train Accuracy:', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
+            print 'Valid Accuracy:', sess.run(accuracy, feed_dict={xs: X_valid, ys: y_valid})
+            print 'Test Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic2')
 
 def basicnn3():
 
@@ -143,7 +149,7 @@ def basicnn3():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -154,10 +160,10 @@ def basicnn3():
         sess.run(train_step, feed_dict={xs: X_train, ys: y_train})
         if i % 100 == 0:
             print 'process {0}'.format(i)
-            print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
-            print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
+            print 'Train Accuracy:', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
+            print 'Valid Accuracy:', sess.run(accuracy, feed_dict={xs: X_valid, ys: y_valid})
+            print 'Test Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic3')
 
 def basicnn4():
 
@@ -195,7 +201,7 @@ def basicnn4():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -206,15 +212,15 @@ def basicnn4():
         sess.run(train_step, feed_dict={xs: X_train, ys: y_train})
         if i % 100 == 0:
             print 'process {0}'.format(i)
-            print '--Accuracy:--', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
-            print 'Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
+            print 'Train Accuracy:', sess.run(accuracy, feed_dict={xs: X_train, ys: y_train})
+            print 'Valid Accuracy:', sess.run(accuracy, feed_dict={xs: X_valid, ys: y_valid})
+            print 'Test Accuracy:', sess.run(accuracy, feed_dict={xs: X_test, ys: y_test})
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train})
-            saver.save(sess, 'basic4')
 
 if __name__ == "__main__":
     # basicnn()
-    # basicnn2()
-    basicnn3()
+    basicnn2()
+    # basicnn3()
     # basicnn4()
 
 
