@@ -54,7 +54,7 @@ def basicnn():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -102,7 +102,7 @@ def basicnn2():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
 
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
@@ -149,7 +149,7 @@ def basicnn3():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.001).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -201,7 +201,7 @@ def basicnn4():
     correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(ys, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=ys))
-    train_step = tf.train.AdamOptimizer(0.0001).minimize(cost)
+    train_step = tf.train.AdamOptimizer(0.1).minimize(cost)
 
     init = tf.global_variables_initializer()
     sess = tf.Session()
@@ -219,8 +219,8 @@ def basicnn4():
 
 if __name__ == "__main__":
     # basicnn()
-    basicnn2()
+    # basicnn2()
     # basicnn3()
-    # basicnn4()
+
 
 
