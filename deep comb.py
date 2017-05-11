@@ -2,6 +2,7 @@ import pandas as pd
 import preprocess
 import tensorflow as tf
 from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.utils import shuffle
 
 
 data = pd.read_csv("myFP_217_D2.csv", header=None)
@@ -14,6 +15,7 @@ X = preprocess.comb(X)
 value = preprocess.get_target(D2)
 value = MultiLabelBinarizer().fit_transform(value)
 y = pd.DataFrame(value)
+X, y = shuffle(X, y, random_state=0)
 
 X_train, X_test = X[:int((0.8*len(X)))], X[int((0.8*len(X))):]
 y_train, y_test = y[:int((0.8*len(X)))], y[int((0.8*len(X))):]
@@ -168,5 +170,5 @@ def cnn2():
 
 
 if __name__ == "__main__":
-    # rnn1()
-    cnn2()
+    rnn1()
+    # cnn2()
