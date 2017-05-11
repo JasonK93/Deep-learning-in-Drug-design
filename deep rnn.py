@@ -2,7 +2,7 @@ import pandas as pd
 import preprocess
 import tensorflow as tf
 from sklearn.preprocessing import MultiLabelBinarizer
-
+from sklearn.utils import shuffle
 
 data = pd.read_csv("myFP_217_D2.csv", header=None)
 
@@ -80,7 +80,6 @@ def rnn1():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
-                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
                 print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
@@ -145,7 +144,6 @@ def rnn2():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
-                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
                 print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
@@ -210,7 +208,6 @@ def rnn3():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
-                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
                 print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
 
@@ -277,7 +274,6 @@ def rnn4():
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
                 print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
-                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
                 print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
