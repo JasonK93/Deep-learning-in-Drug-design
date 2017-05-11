@@ -108,3 +108,17 @@ def get_target(data):
     for i in xrange(0, len(data)):
         target.append((a[i][0]))
     return target
+
+def comb(X):
+    test = []
+    for i in xrange(0,len(X)):
+        a = []
+        temp = X.iloc[i, :]
+        for k in xrange(0, 1024):
+            a.append(temp[k])
+            a.append(temp[k+1024])
+        test.append(a)
+        if i % 200 == 0:
+            print ('combine preocess :', i*100/len(X), '%')
+    comb = pd.DataFrame(test)
+    return comb
