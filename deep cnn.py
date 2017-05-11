@@ -271,7 +271,7 @@ def cnn4():
             print 'cost:', sess.run(cost, feed_dict={xs: X_train, ys: y_train, keep_prob: 1})
 
 if __name__ == "__main__":
-    cnn1()
+    # cnn1()
     # cnn2()
     # cnn3()
-    # cnn4()
+    cnn4()

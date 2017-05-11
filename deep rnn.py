@@ -14,6 +14,8 @@ value = preprocess.get_target(D2)
 value = MultiLabelBinarizer().fit_transform(value)
 y = pd.DataFrame(value)
 
+X, y = shuffle(X, y, random_state=0)
+
 X_train, X_test = X[:int((0.8*len(X)))], X[int((0.8*len(X))):]
 y_train, y_test = y[:int((0.8*len(X)))], y[int((0.8*len(X))):]
 
@@ -77,9 +79,9 @@ def rnn1():
                 correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
-                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
+                print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
+                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
+                print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
 
@@ -142,9 +144,9 @@ def rnn2():
                 correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
-                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
+                print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
+                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
+                print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
 
@@ -207,9 +209,9 @@ def rnn3():
                 correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
-                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
+                print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
+                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
+                print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
 
 
@@ -274,9 +276,9 @@ def rnn4():
                 correct = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
 
                 accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Accuracy:', accuracy.eval({x: X_test, y: y_test}))
-                accuracy1 = tf.reduce_mean(tf.cast(correct, 'float'))
-                print('Train Accuracy:', accuracy1.eval({x: X_train, y: y_train}))
+                print('Train Accuracy:', accuracy.eval({x: X_train, y: y_train}))
+                print('Valid Accuracy:', accuracy.eval({x: X_valid, y: y_valid}))
+                print('Test Accuracy:', accuracy.eval({x: X_test, y: y_test}))
 
     train_neural_network(x)
 
